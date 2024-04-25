@@ -1,0 +1,75 @@
+@using System.Globalization
+@using Ucommerce.Web.Infrastructure.Extensions
+@model CustomUITest.Models.ProductViewModel
+@{
+    Layout = "Layout.cshtml";
+}
+
+<h1>@Model.DisplayName</h1>
+
+
+<ul>
+    @{
+        @if (Model.IsSellable)
+        {
+            <li>
+                <p>@Html.Raw(Model.DisplayName)</p>
+                <p> @Html.Raw(Model.Price.PriceInclTax.FormatToCurrency(CultureInfo.CurrentCulture)) </p>
+                <form action=@($"/product/{Model.Sku}")
+                      method="post">
+                    <table>
+                        <tr>
+                            <td>Amount: </td>
+                            <td>
+                                <input name="amount"
+                                       type="number"
+                                       value="1" />
+                            </td>
+                            <td colspan="2">
+                                <input class="btn btn-inverted"
+                                       type="submit"
+                                       value="Add to cart" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </li>
+        }
+        else if (Model.Variants.Any())
+        {
+            <ul>
+                @foreach (var variant in Model.Variants)
+                {
+                    <li>
+                        <p>@Html.Raw(variant.DisplayName)</p>
+                        <p> @Html.Raw(variant.Price.PriceInclTax.FormatToCurrency(CultureInfo.CurrentCulture)) </p>
+                        <form action=@($"/product/{Model.Sku}?variantSku={variant.VariantSku}")
+                              method="post">
+                            <table>
+                                <tr>
+                                    <td>Amount: </td>
+                                    <td>
+                                        <input name="amount"
+                                               type="number"
+                                               value="1" />
+                                    </td>
+                                    <td colspan="2">
+                                        <input class="btn btn-inverted"
+                                               type="submit"
+                                               value="Add to cart" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <li>
+                <p>This product is not available for purchase</p>
+            </li>
+        }
+    }
+</ul>

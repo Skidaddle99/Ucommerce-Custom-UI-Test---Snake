@@ -1,0 +1,49 @@
+@{
+    Layout = null;
+}
+
+<head>
+    <title>Ucommerce Demo Site</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+<table>
+    <tr>
+        <td>
+            <a href=@("/")>
+                <h1>Ucommerce Demo Site</h1>
+            </a>
+        </td>
+        <td>
+            <form action=@("/cart")
+                  method="get">
+                <input type="submit"
+                       value="Cart" />
+            </form>
+        </td>
+        <td>
+            <form action=@("/cart")
+                  method="post">
+                <input type="submit"
+                       value="Clear Cart" />
+            </form>
+        </td>
+        <td>
+            <form action=@("/ucommerce/api/v1/search")
+                  method="post">
+                <input type="submit"
+                       value="Scratch Index" />
+            </form>
+        </td>
+        <td>
+            <form action=@("/ucommerce")
+                  method="get">
+                <input type="submit"
+                       value="Ucommerce Backoffice" />
+            </form>
+        </td>
+    </tr>
+</table>
+@RenderBody()
+</body>

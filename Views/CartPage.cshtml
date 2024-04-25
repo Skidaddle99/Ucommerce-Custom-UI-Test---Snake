@@ -1,0 +1,55 @@
+@model CustomUITest.Models.CartViewModel
+@{
+    Layout = "Layout.cshtml";
+}
+
+<p>Cart Items.</p>
+<table>
+    <tr>
+        <th>
+            <p>Name</p>
+        </th>
+        <th>
+            <p>Quantity</p>
+        </th>
+        <th>
+            <p>Unit Price</p>
+        </th>
+        <th>
+            <p>Unit Tax</p>
+        </th>
+        <th>
+            <p>Orderline Total</p>
+        </th>
+    </tr>
+    @{
+        foreach (var orderLine in Model.OrderLines)
+        {
+            <tr>
+                <td>
+                    <p>@orderLine.ProductName</p>
+                </td>
+                <td>
+                    <p>@orderLine.Quantity</p>
+                </td>
+                <td>
+                    <p>@orderLine.Price</p>
+                </td>
+                <td>
+                    <p>@orderLine.Tax</p>
+                </td>
+                <td>
+                    <p>@orderLine.Total</p>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<p>
+    <b>Money</b>
+</p>
+<p>Order total: @Model.OrderTotal</p>
+<p>Discount total: @Model.DiscountTotal</p>
+<p>Tax total: @Model.TaxTotal</p>
+<p>Subtotal: @Model.Subtotal</p>

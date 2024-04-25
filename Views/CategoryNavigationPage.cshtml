@@ -1,0 +1,38 @@
+@model CustomUITest.Models.CategoryNavigationViewModel
+@{
+    Layout = "Layout.cshtml";
+}
+<body>
+<div>
+    <h1>Categories</h1>
+    @if (Model.Categories.Any())
+    {
+        <ul>
+            @foreach (var category in Model.Categories)
+            {
+                <div>
+                    <a href=@($"/category/{Html.Raw(category.Id)}")>@Html.Raw(category.DisplayName)</a>
+                    <p>@Html.Raw(category.Description) </p>
+                </div>
+
+                @if (category.Categories.Any())
+                {
+                    <ul>
+                        @foreach (var subCategory in category.Categories)
+                        {
+                            <div>
+                                <a href=@($"/category/{Html.Raw(subCategory.Id)}")>@Html.Raw(subCategory.DisplayName)</a>
+                                <p>@Html.Raw(subCategory.Description) </p>
+                            </div>
+                        }
+                    </ul>
+                }
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No categories found</p>
+    }
+</div>
+</body>
